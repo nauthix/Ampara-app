@@ -1,0 +1,11 @@
+Copyright © 2025 Fredy Mamani Ramos
+
+Todos los derechos reservados.
+
+Este proyecto y sus contenidos (código, diseño, imágenes, documentación y estructura) están protegidos por derechos de autor.
+
+Se prohíbe su reproducción, modificación, distribución o uso con fines comerciales sin autorización expresa y por escrito del autor.
+
+El archivo fuente completo (.aia) no se encuentra publicado por motivos de protección intelectual.
+
+Para solicitudes académicas o colaboraciones técnicas, contactar a: fredymamani@ejemplo.com
