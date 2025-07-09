@@ -1,0 +1,2361 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ampara - Guía de Primeros Auxilios</title>
+  <link rel="stylesheet" href="tailwind.min.css">
+  <link rel="stylesheet" href="fontawesome.css">
+  <link rel="stylesheet" href="fonts.css">
+  <style id="app-style">
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      height: 100%;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background-color: #f8f9fa;
+      line-height: 1.6;
+      color: #333;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* Dark mode styles */
+    body.dark-mode {
+      background-color: #1a202c;
+      color: #f7fafc;
+    }
+
+    /* Home screen specific styles */
+    .home-container {
+      min-height: 100vh;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1rem;
+    }
+
+    body.dark-mode .home-container {
+      background: linear-gradient(135deg, #2d3748 0%, #1a202c 100%);
+    }
+
+    .home-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000"><polygon fill="%23ffffff08" points="0,0 1000,300 1000,1000 0,700"/><polygon fill="%23ffffff04" points="0,300 1000,100 1000,400 0,600"/></svg>');
+      pointer-events: none;
+    }
+
+    .home-content {
+      text-align: center;
+      max-width: 600px;
+      width: 100%;
+      z-index: 1;
+      position: relative;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      border-radius: 24px;
+      padding: 3rem 2rem;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    body.dark-mode .home-content {
+      background: rgba(45, 55, 72, 0.95);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .home-title {
+      font-size: 2.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+    }
+
+    body.dark-mode .home-title {
+      background: linear-gradient(135deg, #90cdf4, #a78bfa);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .home-subtitle {
+      color: #6b7280;
+      font-size: 1.1rem;
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    body.dark-mode .home-subtitle {
+      color: #9ca3af;
+    }
+
+    .home-icon {
+      font-size: 4rem;
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      animation: heartbeat 2s ease-in-out infinite;
+    }
+
+    .home-icon img {
+      filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(196deg) brightness(95%) contrast(72%);
+    }
+
+    @keyframes heartbeat {
+      0% { transform: scale(1); }
+      14% { transform: scale(1.1); }
+      28% { transform: scale(1); }
+      42% { transform: scale(1.1); }
+      70% { transform: scale(1); }
+    }
+
+    .language-selector-home {
+      display: inline-block;
+      margin: 0 0.5rem 2rem;
+      padding: 0.75rem 1.5rem;
+      border-radius: 12px;
+      border: 2px solid transparent;
+      background: rgba(255, 255, 255, 0.7);
+      color: #374151;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(5px);
+    }
+
+    .language-selector-home:hover {
+      background: rgba(255, 255, 255, 0.9);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    }
+
+    .language-selector-home.active {
+      background: linear-gradient(135deg, #667eea, #764ba2);
+      color: white;
+      border-color: rgba(255, 255, 255, 0.3);
+    }
+
+    body.dark-mode .language-selector-home {
+      background: rgba(45, 55, 72, 0.7);
+      color: #e2e8f0;
+    }
+
+    body.dark-mode .language-selector-home:hover {
+      background: rgba(45, 55, 72, 0.9);
+    }
+
+    body.dark-mode .language-selector-home.active {
+      background: linear-gradient(135deg, #4299e1, #9f7aea);
+    }
+
+    .start-button {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white;
+      font-weight: 700;
+      padding: 1rem 2.5rem;
+      border-radius: 16px;
+      font-size: 1.25rem;
+      border: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .start-button::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .start-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 15px 35px rgba(239, 68, 68, 0.4);
+    }
+
+    .start-button:hover::before {
+      left: 100%;
+    }
+
+    .start-button:active {
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 768px) {
+      .home-content {
+        padding: 2rem 1.5rem;
+        margin: 1rem;
+      }
+
+      .home-title {
+        font-size: 2rem;
+      }
+
+      .home-subtitle {
+        font-size: 1rem;
+      }
+
+      .language-selector-home {
+        margin: 0 0.25rem 1.5rem;
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+      }
+
+      .start-button {
+        padding: 0.875rem 2rem;
+        font-size: 1.1rem;
+      }
+    }
+
+    .subtitle {
+      color: #6c757d;
+      font-size: 0.9em;
+      margin-top: 0.5rem;
+      font-weight: 400;
+      transition: color 0.3s ease;
+    }
+
+    body.dark-mode .subtitle {
+      color: #a0aec0;
+    }
+
+    .card-button {
+      transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+      border-radius: 16px;
+      margin-bottom: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 1.5rem;
+      background-color: #fff;
+      cursor: pointer;
+      width: 100%;
+      min-height: 200px;
+    }
+
+    body.dark-mode .card-button {
+      background-color: #2d3748;
+      color: #f7fafc;
+    }
+
+    .card-button:hover {
+      transform: translateY(-10px);
+      box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.15), 0 8px 12px -5px rgba(0, 0, 0, 0.08);
+      background-color: #f8faff;
+    }
+
+    body.dark-mode .card-button:hover {
+      background-color: #3a4a5e;
+    }
+
+    .card-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #4299e1;
+      transition: all 0.3s ease;
+    }
+
+    .card-button:hover .card-icon {
+      transform: scale(1.15);
+      color: #3182ce;
+    }
+
+    .emergency-btn {
+      background-color: #dc3545;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      padding: 0.85rem 1.75rem;
+      border-radius: 12px;
+      font-weight: 700;
+      box-shadow: 0 6px 12px rgba(220, 53, 69, 0.25);
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    .emergency-btn:hover {
+      background-color: #c82333;
+      transform: scale(1.08);
+      box-shadow: 0 8px 16px rgba(220, 53, 69, 0.35);
+    }
+
+    .language-selector {
+      cursor: pointer;
+      padding: 6px 12px;
+      border-radius: 6px;
+      transition: all 0.2s ease;
+      border: 1px solid #e5e7eb;
+      font-weight: 600;
+      margin: 0 4px;
+    }
+
+    .language-selector:hover {
+      background-color: #f0f4f8;
+    }
+
+    .language-selector.active {
+      background-color: #4299e1;
+      color: white;
+      border-color: #4299e1;
+    }
+
+    .tab {
+      cursor: pointer;
+      transition: all 0.3s ease;
+      padding: 0.75rem 1.25rem;
+      font-weight: 600;
+      border-radius: 6px 6px 0 0;
+    }
+
+    .tab:hover {
+      background-color: #f0f4f8;
+    }
+
+    .tab.active {
+      border-bottom: 3px solid #4299e1;
+      color: #2b6cb0;
+      background-color: #ebf5ff;
+    }
+
+    .section-container {
+      width: 100%;
+      margin: 0;
+      padding: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .section-container {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .section-container {
+        padding: 2rem;
+      }
+    }
+
+    .section-card {
+      padding: 1rem;
+      border-radius: 16px;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2.5rem;
+      background-color: #fff;
+      width: 100%;
+    }
+
+    @media (min-width: 640px) {
+      .section-card {
+        padding: 1.5rem;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .section-card {
+        padding: 2rem;
+      }
+    }
+
+    body.dark-mode .section-card {
+      background-color: #2d3748;
+    }
+
+    h1, h2, h3 {
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+    }
+
+    .main-heading {
+      font-size: 2.5rem;
+      font-weight: 800;
+      margin-bottom: 1rem;
+      color: #2d3748;
+    }
+
+    body.dark-mode .main-heading {
+      color: #f7fafc;
+    }
+
+    .section-heading {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 1.5rem;
+      color: #3182ce;
+    }
+
+    body.dark-mode .section-heading {
+      color: #63b3ed;
+    }
+
+    .subsection-heading {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 1.5rem 0 1rem;
+      color: #2d3748;
+    }
+
+    body.dark-mode .subsection-heading {
+      color: #e2e8f0;
+    }
+
+    .tab-container {
+      display: flex;
+      margin-bottom: 2rem;
+      border-bottom: 2px solid #e2e8f0;
+      padding-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+
+    body.dark-mode .tab-container {
+      border-color: #4a5568;
+    }
+
+    .tab-content {
+      padding: 1.5rem 0;
+    }
+
+    .list-item {
+      margin-bottom: 1rem;
+      padding-left: 1.5rem;
+      position: relative;
+    }
+
+    .step-number {
+      background: linear-gradient(135deg, #4299e1, #3182ce);
+      color: white;
+      border-radius: 50%;
+      width: 2.5rem;
+      height: 2.5rem;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      margin-right: 1.5rem;
+      box-shadow: 0 4px 8px rgba(66, 153, 225, 0.3);
+      transition: all 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .step-number:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 12px rgba(66, 153, 225, 0.4);
+    }
+
+    body.dark-mode .step-number {
+      background: linear-gradient(135deg, #63b3ed, #4299e1);
+      box-shadow: 0 4px 8px rgba(99, 179, 237, 0.3);
+    }
+
+    body.dark-mode .step-number:hover {
+      box-shadow: 0 6px 12px rgba(99, 179, 237, 0.4);
+    }
+
+    .warning-box {
+      background-color: #fef5e7;
+      border-left: 4px solid #f59e0b;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    body.dark-mode .warning-box {
+      background-color: #451a03;
+      border-color: #f59e0b;
+    }
+
+    .info-box {
+      background-color: #eff6ff;
+      border-left: 4px solid #3b82f6;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+
+    body.dark-mode .info-box {
+      background-color: #1e3a8a;
+      border-color: #3b82f6;
+    }
+
+    @media (max-width: 768px) {
+      .section-card {
+        padding: 1.5rem;
+      }
+
+      .main-heading {
+        font-size: 2rem;
+      }
+
+      .section-heading {
+        font-size: 1.75rem;
+      }
+
+      .tab-container {
+        flex-direction: column;
+      }
+
+      .tab {
+        margin-bottom: 0.5rem;
+        border-radius: 6px;
+      }
+    }
+
+    /* Fixed emergency button styles */
+    .fixed.emergency-btn {
+      animation: pulse 2s infinite;
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .fixed.emergency-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 10px 20px rgba(220, 53, 69, 0.4);
+    }
+
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0.7);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(220, 53, 69, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(220, 53, 69, 0);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .fixed.emergency-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+        left: 1rem;
+        bottom: 1rem;
+      }
+
+      #emergency-dropdown {
+        max-width: 85vw;
+        font-size: 0.85rem;
+      }
+
+      #emergency-dropdown a {
+        padding: 0.6rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* Dark mode toggle button styles */
+    .dark-mode-toggle {
+      cursor: pointer;
+      padding: 8px;
+      border-radius: 50%;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: #4299e1;
+      background-color: transparent;
+      border: none;
+    }
+
+    .dark-mode-toggle:hover {
+      background-color: rgba(66, 153, 225, 0.1);
+    }
+
+    body.dark-mode .dark-mode-toggle {
+      color: #90cdf4;
+    }
+
+    body.dark-mode .dark-mode-toggle:hover {
+      background-color: rgba(144, 205, 244, 0.1);
+    }
+
+    body.dark-mode .bg-white {
+      background-color: #2d3748 !important;
+    }
+
+    body.dark-mode .border-gray-200 {
+      border-color: #4a5568;
+    }
+
+    body.dark-mode .text-gray-600,
+    body.dark-mode .text-blue-700,
+    body.dark-mode .text-gray-800 {
+      color: #a0aec0;
+    }
+
+    body.dark-mode .tab {
+      color: #e2e8f0;
+    }
+
+    body.dark-mode .tab:hover {
+      background-color: #4a5568;
+    }
+
+    body.dark-mode .tab.active {
+      background-color: #2c5282;
+      color: #ebf8ff;
+      border-color: #4299e1;
+    }
+
+    body.dark-mode header.bg-white {
+      background-color: #2d3748;
+      box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+    }
+
+    body.dark-mode .border-b {
+      border-color: #4a5568;
+    }
+
+    body.dark-mode .fixed.emergency-btn {
+      box-shadow: 0 6px 12px rgba(220, 53, 69, 0.4);
+    }
+
+    body.dark-mode .list-disc,
+    body.dark-mode .list-decimal {
+      color: #e2e8f0;
+    }
+
+    /* Enhanced step styling */
+    .step-container {
+      background-color: #f8faff;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border-left: 4px solid #4299e1;
+      transition: all 0.3s ease;
+    }
+
+    .step-container:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(66, 153, 225, 0.15);
+      background-color: #f0f8ff;
+    }
+
+    body.dark-mode .step-container {
+      background-color: #2a3441;
+      border-left-color: #63b3ed;
+    }
+
+    body.dark-mode .step-container:hover {
+      background-color: #334155;
+      box-shadow: 0 4px 12px rgba(99, 179, 237, 0.15);
+    }
+
+    .step-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #2d3748;
+    }
+
+    body.dark-mode .step-title {
+      color: #f7fafc;
+    }
+
+    .step-description {
+      color: #4a5568;
+      line-height: 1.6;
+    }
+
+    body.dark-mode .step-description {
+      color: #cbd5e0;
+    }
+
+    /* Dark mode text fixes */
+    body.dark-mode .text-black,
+    body.dark-mode .text-gray-900 {
+      color: #f7fafc !important;
+    }
+
+    body.dark-mode .text-gray-700 {
+      color: #cbd5e0 !important;
+    }
+
+    body.dark-mode .text-gray-500 {
+      color: #9ca3af !important;
+    }
+
+    body.dark-mode h1,
+    body.dark-mode h2,
+    body.dark-mode h3,
+    body.dark-mode h4,
+    body.dark-mode h5,
+    body.dark-mode h6 {
+      color: #f7fafc;
+    }
+
+    body.dark-mode p,
+    body.dark-mode div,
+    body.dark-mode span,
+    body.dark-mode li {
+      color: #e2e8f0;
+    }
+
+    body.dark-mode .text-blue-700 {
+      color: #63b3ed !important;
+    }
+
+    body.dark-mode .text-blue-600 {
+      color: #4299e1 !important;
+    }
+
+    /* Dropdown dark mode fixes */
+    body.dark-mode #emergency-dropdown {
+      background-color: #2d3748;
+      border: 1px solid #4a5568;
+    }
+
+    body.dark-mode #emergency-dropdown a {
+      color: #e2e8f0;
+    }
+
+    body.dark-mode #emergency-dropdown a:hover {
+      background-color: #4a5568;
+    }
+
+    /* Language selector dark mode */
+    body.dark-mode .language-selector {
+      background-color: #2d3748;
+      color: #e2e8f0;
+      border-color: #4a5568;
+    }
+
+    body.dark-mode .language-selector:hover {
+      background-color: #4a5568;
+    }
+
+    body.dark-mode .language-selector.active {
+      background-color: #4299e1;
+      color: #ffffff;
+    }
+
+    /* Hidden class */
+    .hidden {
+      display: none !important;
+    }
+
+    /* Emergency button visibility fix */
+    #emergency-dropdown-btn {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 1.5rem;
+      z-index: 50;
+    }
+
+    /* Only show emergency button when main screen is visible */
+    #main-screen.hidden #emergency-dropdown-btn {
+      display: none !important;
+    }
+
+    /* Language visibility */
+    .lang-es, .lang-qu, .lang-ay { display: none; }
+    body[data-lang="es"] .lang-es { display: inline; }
+    body[data-lang="qu"] .lang-qu { display: inline; }
+    body[data-lang="ay"] .lang-ay { display: inline; }
+    body[data-lang="es"] .lang-es.block { display: block; }
+    body[data-lang="qu"] .lang-qu.block { display: block; }
+    body[data-lang="ay"] .lang-ay.block { display: block; }
+
+    /* Emergency dropdown positioning */
+    #emergency-dropdown {
+      position: absolute;
+      bottom: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      margin-bottom: 0.5rem;
+      background-color: white;
+      border-radius: 0.5rem;
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      min-width: max-content;
+      max-width: 90vw;
+      border: 1px solid #e5e7eb;
+    }
+
+    #emergency-dropdown a {
+      display: block;
+      padding: 0.75rem 1rem;
+      color: #374151;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 0.2s ease;
+      font-size: 0.9rem;
+      text-align: center;
+    }
+
+    #emergency-dropdown a:hover {
+      background-color: #f3f4f6;
+    }
+  </style>
+</head>
+<body data-lang="es">
+
+  <!-- Home Screen -->
+  <div id="home-screen" class="home-container">
+    <div class="home-content">
+      <div class="home-icon">
+        <img src="fa-solid--first-aid.svg" alt="Primeros Auxilios" style="width: 4rem; height: 4rem; filter: brightness(0) saturate(100%) invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);">
+      </div>
+
+      <h1 class="home-title">
+        <span class="lang-es">Ampara</span>
+        <span class="lang-qu">Ampara</span>
+        <span class="lang-ay">Ampara</span>
+      </h1>
+
+      <p class="home-subtitle">
+        <span class="lang-es">Tu guía confiable de primeros auxilios</span>
+        <span class="lang-qu">Qam ñawpaq yanapayniykipaq</span>
+        <span class="lang-ay">Nayriri yanapañamawa</span>
+      </p>
+
+      <!-- Language selector -->
+      <div style="margin-bottom: 2rem;">
+        <div style="margin-bottom: 1rem; color: #6b7280; font-weight: 500;">
+          <span class="lang-es">Selecciona tu idioma:</span>
+          <span class="lang-qu">Simiykita akllay:</span>
+          <span class="lang-ay">Arumawa ajlliña:</span>
+        </div>
+        <button class="language-selector-home active" data-lang="es">
+          <span style="display: inline-flex; align-items: center;">
+    <img src="icons8-spain-48.png" alt="" width="24" height="24" style="vertical-align: middle; margin-right: 8px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='none';">
+    <span>Español</span>
+  </span>
+        </button>
+        <button class="language-selector-home" data-lang="qu">
+          <span style="display: inline-flex; align-items: center;">
+    <img src="circle-flags--quechua.svg" alt="" width="24" height="24" style="vertical-align: middle; margin-right: 8px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='none';">
+    <span>Quechua</span>
+  </span>
+        <button class="language-selector-home" data-lang="ay">
+          <span style="display: inline-flex; align-items: center;">
+    <img src="AYmara.png" alt="" width="24" height="24" style="vertical-align: middle; margin-right: 8px;" onerror="this.style.display='none'; this.nextElementSibling.style.display='none';">
+    <span>Aymara</span>
+  </span>
+        </button>
+      </div>
+
+      <button id="start-btn" class="start-button">
+        <span class="emoji-icon mr-2">▶️</span>
+        <span class="lang-es">Comenzar</span>
+        <span class="lang-qu">Qallariy</span>
+        <span class="lang-ay">Qalltaña</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Screen -->
+  <div id="main-screen" class="min-h-screen flex flex-col hidden">
+    <!-- Fixed emergency button -->
+    <div id="emergency-dropdown-btn" class="emergency-btn">
+      <div style="position: relative;">
+        <button onclick="toggleEmergencyDropdown()" style="background: none; border: none; color: inherit; padding: 0; font: inherit; cursor: inherit; display: flex; align-items: center;">
+          <span class="emoji-icon ml-2">🔽</span>
+          <span class="lang-es">Emergencia</span>
+          <span class="lang-qu">Utqay yanapay</span>
+          <span class="lang-ay">Anxata yanapawi</span>
+          <span class="emoji-icon ml-2">🔽</span>
+        </button>
+        <div id="emergency-dropdown" class="hidden">
+          <a onclick="callEmergency('105')" style="cursor: pointer;">
+            <span class="emoji-icon mr-2">📞</span>105 - <span class="lang-es">Policía</span><span class="lang-qu">Pusikuna</span><span class="lang-ay">Pusiri</span>
+          </a>
+          <a onclick="callEmergency('911')" style="cursor: pointer;">
+            <span class="emoji-icon mr-2">📞</span>911 - <span class="lang-es">Emergencias</span><span class="lang-qu">Utqay yanapay</span><span class="lang-ay">Anxata yanapawi</span>
+          </a>
+          <a onclick="callEmergency('116')" style="cursor: pointer;">
+            <span class="emoji-icon mr-2">📞</span>116 - <span class="lang-es">Bomberos</span><span class="lang-qu">Nina chinkachik</span><span class="lang-ay">Nina jiwayiri</span>
+          </a>
+          <a onclick="callEmergency('115')" style="cursor: pointer;">
+            <span class="emoji-icon mr-2">📞</span>115 - <span class="lang-es">Defensa Civil</span><span class="lang-qu">Llaqta amachay</span><span class="lang-ay">Marka arktawi</span>
+          </a>
+          <a onclick="callEmergency('110')" style="cursor: pointer;">
+            <span class="emoji-icon mr-2">📞</span>110 - <span class="lang-es">Policía de carreteras</span><span class="lang-qu">Ñan pusikuna</span><span class="lang-ay">Thaki pusiri</span>
+          </a>
+          <a onclick="callEmergency('0126604810')" style="cursor: pointer;">
+            <span class="emoji-icon mr-2">📞</span>(01) 266 0481 - <span class="lang-es">Cruz Roja</span><span class="lang-qu">Puka Chakana</span><span class="lang-ay">Wila Chakana</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Header -->
+    <header class="bg-white shadow-md py-5 px-4 sm:px-6 lg:px-8 sticky top-0 z-10 w-full">
+      <div class="w-full flex justify-between items-center">
+        <div class="flex items-center">
+          <button id="back-btn" class="text-sky-500 hover:text-sky-600 hidden transition duration-200 ml-1 mr-1 text-2xl">
+  <span class="emoji-icon">⏪</span>
+          </button>
+          <h1 class="text-2xl font-bold text-blue-700">
+            <span class="lang-es">Ampara</span>
+            <span class="lang-qu">Ampara</span>
+            <span class="lang-ay">Ampara</span>
+          </h1>
+        </div>
+
+        <div class="flex items-center space-x-1.5">
+          <!-- Language selector in header -->
+          <div class="flex items-center">
+            <button class="language-selector" data-lang="es">ES</button>
+            <button class="language-selector" data-lang="qu">QU</button>
+            <button class="language-selector" data-lang="ay">AY</button>
+          </div>
+
+          <!-- Dark mode toggle -->
+          <button id="dark-mode-toggle" class="dark-mode-toggle">
+            <span class="emoji-icon">🌙</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <main class="w-full flex-grow p-4 sm:p-6 lg:p-8">
+      <!-- Sections list -->
+      <div id="sections-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 w-full">
+        <div class="card-button bg-white rounded-lg shadow-md overflow-hidden cursor-pointer hover:shadow-xl" data-section="rcp">
+          <span class="emoji-icon card-icon" style="color: #ef4444;">💓</span>
+          <div>
+            <h2 class="text-2xl font-semibold mb-2">
+              <span class="lang-es">RPC (Reanimación Cardio Pulmonar)</span>
+              <span class="lang-qu">RPC (Sunqu Wañusqamanta Kutichiy)</span>
+              <span class="lang-ay">RPC (Jiwkit jakayañatak uñstayasiña)</span>
+            </h2>
+            <p class="subtitle text-gray-600">
+              <span class="lang-es">Técnica vital para salvar vidas</span>
+              <span class="lang-qu">Kawsayta qispichiq yachaykuna</span>
+              <span class="lang-ay">Jakañ qispiyañataki yatiwi</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="card-button bg-white rounded-lg shadow-md overflow-hidden cursor-pointer" data-section="heridas">
+          <span class="emoji-icon card-icon" style="color: #10b981;">🩹</span>
+          <div>
+            <h2 class="text-xl font-semibold mb-1">
+              <span class="lang-es">Heridas</span>
+              <span class="lang-qu">K'irisqakuna</span>
+              <span class="lang-ay">Ch'axwakuna</span>
+            </h2>
+            <p class="subtitle">
+              <span class="lang-es">Tratamiento de cortes y lesiones</span>
+              <span class="lang-qu">K'iriy hampikuna</span>
+              <span class="lang-ay">Ch'axwañ qollañapa</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="card-button bg-white rounded-lg shadow-md overflow-hidden cursor-pointer" data-section="quemaduras">
+          <span class="emoji-icon card-icon" style="color: #f59e0b;">🔥</span>
+          <div>
+            <h2 class="text-xl font-semibold mb-1">
+              <span class="lang-es">Quemaduras</span>
+              <span class="lang-qu">Ruphasqakuna</span>
+              <span class="lang-ay">Phisqatakuna</span>
+            </h2>
+            <p class="subtitle">
+              <span class="lang-es">Primeros auxilios para quemaduras</span>
+              <span class="lang-qu">Ruphasqa hampikuna</span>
+              <span class="lang-ay">Phisqat qollaña</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="card-button bg-white rounded-lg shadow-md overflow-hidden cursor-pointer" data-section="fracturas">
+          <span class="emoji-icon card-icon" style="color: #8b5cf6;">🦴</span>
+          <div>
+            <h2 class="text-xl font-semibold mb-1">
+              <span class="lang-es">Fracturas</span>
+              <span class="lang-qu">T'aqasqakuna</span>
+              <span class="lang-ay">P'akitakuna</span>
+            </h2>
+            <p class="subtitle">
+              <span class="lang-es">Manejo de huesos rotos</span>
+              <span class="lang-qu">T'aqa tullu hampikuna</span>
+              <span class="lang-ay">P'akit ch'aka qollaña</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="card-button bg-white rounded-lg shadow-md overflow-hidden cursor-pointer" data-section="emergencias">
+          <span class="emoji-icon card-icon" style="color: #dc2626;">🚑</span>
+          <div>
+            <h2 class="text-xl font-semibold mb-1">
+              <span class="lang-es">Emergencias</span>
+              <span class="lang-qu">Utqay yanapakuna</span>
+              <span class="lang-ay">Anxata yanapawi</span>
+            </h2>
+            <p class="subtitle">
+              <span class="lang-es">Situaciones críticas de salud</span>
+              <span class="lang-qu">Utqay qhali kaypi yanapakuna</span>
+              <span class="lang-ay">Anxat qolla kayaru yanapawi</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="card-button bg-white rounded-lg shadow-md overflow-hidden cursor-pointer" data-section="glosario">
+          <span class="emoji-icon card-icon" style="color: #3b82f6;">📚</span>
+          <div>
+            <h2 class="text-xl font-semibold mb-1">
+              <span class="lang-es">Glosario</span>
+              <span class="lang-qu">Simikunapaq Qillqa</span>
+              <span class="lang-ay">Arunakana Qillqawi</span>
+            </h2>
+            <p class="subtitle">
+              <span class="lang-es">Términos médicos importantes</span>
+              <span class="lang-qu">Ancha chaniyuq hampi simikuna</span>
+              <span class="lang-ay">Wali askí qolla arunaka</span>
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Section content containers -->
+      <div id="section-content" class="hidden">
+        <!-- RCP Section -->
+        <div id="rcp-content" class="section-card hidden">
+          <h2 class="section-heading">
+            <span class="lang-es">RCP - Reanimación Cardio Pulmonar</span>
+            <span class="lang-qu">RCP - Sunqu Wañusqamanta Kutichiy</span>
+            <span class="lang-ay">RCP - Jiwkit jakayañatak uñstayasiña</span>
+          </h2>
+
+          <div class="warning-box">
+            <span class="emoji-icon mr-2">⚠️</span>
+            <strong>
+              <span class="lang-es">¡IMPORTANTE!</span>
+              <span class="lang-qu">¡ANCHA CHANIYUQ!</span>
+              <span class="lang-ay">¡WALI ASKÍ!</span>
+            </strong>
+            <span class="lang-es">Llama inmediatamente al 911 antes de comenzar RCP.</span>
+            <span class="lang-qu">911man utqayllata waqyay RCP qallarispa.</span>
+            <span class="lang-ay">911 anxat jawsaña RPC qalltasaxa.</span>
+          </div>
+
+          <h3 class="subsection-heading">
+            <span class="lang-es">Pasos para RCP:</span>
+            <span class="lang-qu">RCP ruwaykuna:</span>
+            <span class="lang-ay">RPC lurañanaka:</span>
+          </h3>
+
+          <div class="space-y-4">
+            <div class="step-container">
+              <div class="flex items-start">
+                <span class="step-number"><span class="emoji-icon">✓</span></span>
+                <div class="flex-1">
+                  <h4 class="step-title">
+                    <span class="lang-es">Verificar respuesta</span>
+                    <span class="lang-qu">Kutichiq kasqanta qhawariy</span>
+                    <span class="lang-ay">Kutichani uk uñakipaña</span>
+                  </h4>
+                  <p class="step-description lang-es">Toca los hombros con firmeza y grita: "¿Estás bien?".</p>
+                  <p class="step-description lang-qu">Rikrankunata sinchita llamiy hinaspa qapariy: "¿Allinchu kanki?".</p>
+                  <p class="step-description lang-ay">Jaqin jilirinakapa sinchita llamt'aña, ukat q'ipipt'aña: "¿Walikicha?".</p>
+                  <img src="RPCverificar.png" style="width:100%;" alt="Prueba RPC">
+
+                </div>
+              </div>
+            </div>
+
+            <div class="step-container">
+              <div class="flex items-start">
+                <span class="step-number"><span class="emoji-icon">✓</span></span>
+                <div class="flex-1">
+                  <h4 class="step-title">
+                    <span class="lang-es">Posicionar al paciente</span>
+                    <span class="lang-qu">Unquqta allinta churay</span>
+                    <span class="lang-ay">Usuru suma uñtayaña</span>
+                  </h4>
+                  <p class="step-description lang-es">Coloca a la persona boca arriba sobre una superficie firme.</p>
+                  <p class="step-description lang-qu">Runata umanwan sinchi pampaman churay.</p>
+                  <p class="step-description lang-ay">Jaqiru uma jaqukamaru sinchi llamp'u pampan uñtayaña.</p>
+                  <img src="posicionar.png" style="width:100%;" alt="Posicionar al paciente">
+                </div>
+              </div>
+            </div>
+
+            <div class="step-container">
+              <div class="flex items-start">
+                <span class="step-number"><span class="emoji-icon">🤲</span></span>
+                <div class="flex-1">
+                  <h4 class="step-title">
+                    <span class="lang-es">Compresiones en el pecho</span>
+                    <span class="lang-qu">Sunqupi ñit'iy</span>
+                    <span class="lang-ay">Jiri ñit'iña</span>
+                  </h4>
+                  <p class="step-description lang-es">Realiza 30 compresiones rápidas y fuertes, al menos 5 cm de profundidad.</p>
+                  <p class="step-description lang-qu">30 utqaykuy sinchi ñit'iykuna ruway, 5 cm ukhumanpas.</p>
+                  <p class="step-description lang-ay">30 jank'aki sinchi ñit'iña luram, manqhanakamaraki 5 cm.</p>
+                  <img src="compresiones.png" style="width:100%;" alt="Compresiones torácicas">
+                </div>
+              </div>
+            </div>
+
+            <div class="step-container">
+              <div class="flex items-start">
+                <span class="step-number"><span class="emoji-icon">💨</span></span>
+                <div class="flex-1">
+                  <h4 class="step-title">
+                    <span class="lang-es">Respiración de rescate</span>
+                    <span class="lang-qu">Qispichiy samayta quy</span>
+                    <span class="lang-ay">Qispiyaña samayaña</span>
+                  </h4>
+                  <p class="step-description lang-es">Da 2 respiraciones boca a boca, de 1 segundo cada una.</p>
+                  <p class="step-description lang-qu">Simiwan siminta tapay, 2 samayta quy, sapa hukniyuq 1 segundo.</p>
+                  <p class="step-description lang-ay">2 lakat laka samayaña churam, sapaki 1 wakht'ayampi.</p>
+                  <img src="RPCrespiracionboca.png" style="width:100%;" alt="Respiración boca a boca">
+
+                </div>
+              </div>
+            </div>
+
+            <div class="step-container">
+              <div class="flex items-start">
+                <span class="step-number"><span class="emoji-icon">🔁</span></span>
+                <div class="flex-1">
+                  <h4 class="step-title">
+                    <span class="lang-es">Continuar ciclos</span>
+                    <span class="lang-qu">Muyu ruraykunata qatiykuy</span>
+                    <span class="lang-ay">Sarta lurañanak q'ipichasiña</span>
+                  </h4>
+                  <p class="step-description lang-es">Repite 30 compresiones y 2 respiraciones hasta que llegue ayuda o la persona reaccione.</p>
+                  <p class="step-description lang-qu">30 ñit'iy hinaspa 2 samayta kutiriy, yanapay chayamunankama utaq runa kutichinankama.</p>
+                  <p class="step-description lang-ay">30 ñit'iña ukat 2 samayaña kutiyam, yanapt'iri purkama jan ukaxa jaqi mayampi kutichkama.</p>
+                  <img src="ciclos.png" style="width:100%;" alt="Ciclos de RCP">
+
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box mt-6">
+            <span class="step-number"><span class="emoji-icon">⚠️</span></span>
+            <strong>
+              <span class="lang-es">Recordar:</span>
+              <span class="lang-qu">Yuyay:</span>
+              <span class="lang-ay">Amtaña:</span>
+            </strong>
+            <span class="lang-es">Mantén el ritmo de 100-120 compresiones por minuto. Piensa en la canción "Stayin' Alive".</span>
+            <span class="lang-qu">100-120 ñit'iykunata sapa minutopi ruwayri. "Stayin' Alive" takiyta yuyaykuy.</span>
+            <span class="lang-ay">100-120 ñit'iñanaka sapa minuturu lurañamawa. "Stayin' Alive" q'uchu amtaña.</span>
+          </div>
+        </div>
+
+        <!-- Heridas Section -->
+        <div id="heridas-content" class="section-card hidden">
+          <h2 class="section-heading">
+            <span class="lang-es">Tratamiento de Heridas</span>
+            <span class="lang-qu">K'irisqakuna Hampiy</span>
+            <span class="lang-ay">Ch'axwanaka Qollaña</span>
+          </h2>
+
+          <div class="tab-container">
+            <div class="tab active" data-tab="heridas-leves">
+              <span class="lang-es">Heridas Leves</span>
+              <span class="lang-qu">Pisi k'irisqa</span>
+              <span class="lang-ay">Jisk'a ch'axwa</span>
+            </div>
+            <div class="tab" data-tab="heridas-graves">
+              <span class="lang-es">Heridas Graves</span>
+              <span class="lang-qu">Hatun k'irisqa</span>
+              <span class="lang-ay">Jach'a ch'axwa</span>
+            </div>
+          </div>
+
+          <div id="heridas-leves" class="tab-content">
+            <h3 class="subsection-heading">
+              <span class="lang-es">Para heridas menores:</span>
+              <span class="lang-qu">Aslla k'irisqakunapaq:</span>
+              <span class="lang-ay">Jisk'a ch'axwanakataki:</span>
+            </h3>
+            <ol class="list-decimal list-inside space-y-2">
+              <li>
+                <span class="lang-es">Lava tus manos con agua y jabón</span>
+                <span class="lang-qu">Makinaykita yaku jabon kanwan maqchiy</span>
+                <span class="lang-ay">Amparanaka umi jabun ukampiwa jaquntaña</span>
+                <img src="lavadomanos.png" style="width:100%;" alt="Lavado de manos">
+
+              </li>
+              <li>
+                <span class="lang-es">Detén el sangrado presionando con un paño limpio</span>
+                <span class="lang-qu">Yawar lluqsiyninata phuchkawan ñit'ispa sayachiy</span>
+                <span class="lang-ay">Wila mistuyiri ch'uñu ñit'isaxa sayarachi</span>
+                <img src="detener.png" style="width:100%;" alt="Detener el sangrado">
+
+              </li>
+              <li>
+                <span class="lang-es">Limpia la herida con agua tibia</span>
+                <span class="lang-qu">K'irisqata q'uñi yakuwan maqchiy</span>
+                <span class="lang-ay">Ch'axwa junt'u umimpi jaquntaña</span>
+                <img src="limpiar.png" style="width:100%;" alt="Limpiar la herida">
+
+              </li>
+              <li>
+                <span class="lang-es">Aplica pomada antibiótica si está disponible</span>
+                <span class="lang-qu">Sichus kanqa antibiótico unguento churayuy</span>
+                <span class="lang-ay">Antibiótico pomada utjchi ukatxa churañamawa</span>
+                <img src="pomada.png" style="width:100%;" alt="Aplicar pomada">
+
+              </li>
+              <li>
+                <span class="lang-es">Cubre con una venda o curita estéril</span>
+                <span class="lang-qu">Ch'uya vendawan utaq curitawan pakay</span>
+                <span class="lang-ay">Ch'uña vendar curitar ukatxa pakayaña</span>
+                <img src="venda.png" style="width:100%;" alt="Colocar la venda">
+
+              </li>
+            </ol>
+          </div>
+
+          <div id="heridas-graves" class="tab-content hidden">
+            <h3 class="subsection-heading">
+              <span class="lang-es">Para heridas graves:</span>
+              <span class="lang-qu">Hatun k'irisqakunapaq:</span>
+              <span class="lang-ay">Jach'a ch'axwanakataki:</span>
+            </h3>
+
+            <div class="warning-box">
+              <span class="emoji-icon mr-2">⚠️</span>
+              <strong>
+                <span class="lang-es">¡Llama al 911 inmediatamente!</span>
+                <span class="lang-qu">¡911man utqayllata waqyay!</span>
+                <span class="lang-ay">¡911 anxat jawsaña!</span>
+              </strong>
+            </div>
+
+            <ol class="list-decimal list-inside space-y-2">
+              <li>
+                <span class="lang-es">Controla el sangrado con presión directa</span>
+                <span class="lang-qu">Chiqamanta ñit'ispa yawar lluqsiyninata kamachiy</span>
+                <span class="lang-ay">Chiqpach ñit'isaxa wila mistuyiri kamachaña</span>
+                <img src="presionherida.jpg" style="width:100%;" alt="Presionar la herida">
+
+              </li>
+              <li>
+                <span class="lang-es">NO remuevas objetos incrustados</span>
+                <span class="lang-qu">Satqasqa imakunataqa AMA hurquychu</span>
+                <span class="lang-ay">JANIW satqat yukanaka jaqukañäkiti</span>
+                <img src="noremover.png" style="width:100%;" alt="No remover objeto incrustado">
+
+              </li>
+              <li>
+                <span class="lang-es">Eleva la herida por encima del corazón si es posible</span>
+                <span class="lang-qu">Sichus atiykuwanqa k'irisqata sunqu patanman huqariy</span>
+                <span class="lang-ay">Yatiski ukhaxa ch'axwa chuyma patat jithsuyaña</span>
+                <img src="elevarherida.png" style="width:100%;" alt="Elevar la herida">
+              </li>
+              <li>
+                <span class="lang-es">Mantén a la persona calmada y despierta</span>
+                <span class="lang-qu">Runata thak thakllarichiy hinaspa rikch'aqllarichiy</span>
+                <span class="lang-ay">Jaqi thiya thiyar ikiñar uñjayañar uñtayaña</span>
+                <img src="calmar.png" style="width:100%;" alt="Calmar al paciente">
+              </li>
+              <li>
+                <span class="lang-es">Observa signos de shock</span>
+                <span class="lang-qu">Chiri mancharikuypa rikch'ayninkunata qhawariy</span>
+                <span class="lang-ay">Jithiñ manchañ uñanchanakar uñjaña</span>
+                <img src="observar.png" style="width:100%;" alt="Observar evolución de la herida">
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Quemaduras Section -->
+        <div id="quemaduras-content" class="section-card hidden">
+          <h2 class="section-heading">
+            <span class="lang-es">Tratamiento de Quemaduras</span>
+            <span class="lang-qu">Ruphasqakuna Hampiy</span>
+            <span class="lang-ay">Phisqatanaka Qollaña</span>
+          </h2>
+
+          <div class="tab-container">
+            <div class="tab active" data-tab="quemaduras-leves">
+              <span class="lang-es">Quemaduras Leves</span>
+              <span class="lang-qu">Pisi ruphasqa</span>
+              <span class="lang-ay">Jisk'a phisqata</span>
+            </div>
+            <div class="tab" data-tab="quemaduras-graves">
+              <span class="lang-es">Quemaduras Graves</span>
+              <span class="lang-qu">Hatun ruphasqa</span>
+              <span class="lang-ay">Jach'a phisqata</span>
+            </div>
+          </div>
+
+          <div id="quemaduras-leves" class="tab-content">
+            <h3 class="subsection-heading">
+              <span class="lang-es">Para quemaduras de primer grado:</span>
+              <span class="lang-qu">Ñawpaq kaq ruphasqakunapaq:</span>
+              <span class="lang-ay">Nayriri phisqatanakataki:</span>
+            </h3>
+            <ol class="list-decimal list-inside space-y-2">
+              <li>
+                <span class="lang-es">Enfría la quemadura con agua fresca (no helada) por 10-20 minutos</span>
+                <span class="lang-qu">Ruphasqata chiri yakuwan (manam chhulliyuqchu) 10-20 minutukunapis chiriyachiy</span>
+                <span class="lang-ay">Phisqata thaya umimpi (janiw chhullinïkiti) 10-20 minutunakama thayachañamawa</span>
+                <img src="enfriar.png" style="width:100%;" alt="Enfriar la zona afectada">
+              </li>
+              <li>
+                <span class="lang-es">Quita anillos y ropa suelta antes de que se inflame</span>
+                <span class="lang-qu">Sillukuna p'achakunatapash punsirinanpaq manaraq hurquy</span>
+                <span class="lang-ay">Sillunaka p'achanakampiw punsirinankamax jaqukañamawa</span>
+                <img src="quitaranillo.png" style="width:100%;" alt="Quitar anillo u objetos cerca de la lesión">
+              </li>
+              <li>
+                <span class="lang-es">Aplica aloe vera o crema hidratante</span>
+                <span class="lang-qu">Aloe vera utaq uma qhapachiq pompata churay</span>
+                <span class="lang-ay">Aloe vera jan ukax uma qhapayiri pompar churañamawa</span>
+                <img src="pomada.png" style="width:100%;" alt="Aplicar pomada">
+              </li>
+              <li>
+                <span class="lang-es">Toma analgésicos de venta libre para el dolor</span>
+                <span class="lang-qu">Nanay pasachiq pastillakunata upyay</span>
+                <span class="lang-ay">Usuntañ pasayiri pastillanaka umañamawa</span>
+                <img src="analgesicos.png" style="width:100%;" alt="Administrar analgésicos">
+              </li>
+              <li>
+                <span class="lang-es">NO uses hielo, mantequilla o remedios caseros</span>
+                <span class="lang-qu">AMA chhullita, mantequillata utaq wasipi hampiykunata utilizaychu</span>
+                <span class="lang-ay">JANIW chhullisa, mantequillar utanak utan qollañanaka apasiñäkiti</span>
+                <img src="noaplicar.png" style="width:100%;" alt="No aplicar productos irritantes">
+              </li>
+            </ol>
+          </div>
+
+          <div id="quemaduras-graves" class="tab-content hidden">
+            <h3 class="subsection-heading">
+              <span class="lang-es">Para quemaduras graves (segundo y tercer grado):</span>
+              <span class="lang-qu">Hatun ruphasqakunapaq (iskay kimsa kaq):</span>
+              <span class="lang-ay">Jach'a phisqatanakataki (payiri kimbiri):</span>
+            </h3>
+
+            <div class="warning-box">
+              <span class="emoji-icon mr-2">⚠️</span>
+              <strong>
+                <span class="lang-es">¡Llama al 911 inmediatamente!</span>
+                <span class="lang-qu">¡911man utqayllata waqyay!</span>
+                <span class="lang-ay">¡911 anxat jawsaña!</span>
+              </strong>
+            </div>
+
+            <ol class="list-decimal list-inside space-y-2">
+              <li>
+                <span class="lang-es">Aleja a la persona de la fuente de calor</span>
+                <span class="lang-qu">Runata k'ajlaypa puriyninkamanta karu apay</span>
+                <span class="lang-ay">Jaqi junt'u puriyirinkat jaqhakiñamawa</span>
+                <img src="aleja.png" style="width:100%;" alt="Alejar al paciente del peligro">
+              </li>
+              <li>
+                <span class="lang-es">NO quites ropa adherida a la piel</span>
+                <span class="lang-qu">Qaraman k'askasqa p'achata AMA hurquychu</span>
+                <span class="lang-ay">Janchiruxa k'askasir p'achar JANIW jaqukañäkiti</span>
+                <img src="noquites.png" style="width:100%;" alt="No quitar ropa adherida o ampollas">
+              </li>
+              <li>
+                <span class="lang-es">Enfría con agua durante máximo 20 minutos</span>
+                <span class="lang-qu">Yakuwan 20 minutunkamalla chiriyachiy</span>
+                <span class="lang-ay">Umimpi 20 minutunkama thayachañamawa</span>
+                <img src="enfriar3.png" style="width:100%;" alt="Enfriar zona afectada">
+              </li>
+              <li>
+                <span class="lang-es">Cubre con paño limpio y húmedo</span>
+                <span class="lang-qu">Ch'uya uma phuchkawan pakay</span>
+                <span class="lang-ay">Ch'uña uma ch'uñumpi pakayañamawa</span>
+                <img src="cubrir.png" style="width:100%;" alt="Cubrir la herida con tela limpia">
+              </li>
+              <li>
+                <span class="lang-es">Trata el shock: eleva las piernas, mantén abrigado</span>
+                <span class="lang-qu">Mancharikuyninata hampi: chakikunata huqariy, q'uñi kachiy</span>
+                <span class="lang-ay">Manchañaru qollaña: kayunaka jithsuyaña, junt'ur uñtayaña</span>
+                <img src="tratarshokmanta.png" style="width:100%;" alt="Tratar el shock, cubrir con manta">
+              </li>
+            </ol>
+          </div>
+        </div>
+
+        <!-- Fracturas Section -->
+        <div id="fracturas-content" class="section-card hidden">
+          <h2 class="section-heading">
+            <span class="lang-es">Manejo de Fracturas</span>
+            <span class="lang-qu">T'aqasqakuna Kamachiy</span>
+            <span class="lang-ay">P'akitanaka Kamachaña</span>
+          </h2>
+
+          <div class="warning-box">
+            <span class="emoji-icon mr-2">⚠️</span>
+            <strong>
+              <span class="lang-es">¡IMPORTANTE!</span>
+              <span class="lang-qu">¡ANCHA CHANIYUQ!</span>
+              <span class="lang-ay">¡WALI ASKÍ!</span>
+            </strong>
+            <span class="lang-es">Siempre sospecha fractura en caso de trauma. Llama al 911 para fracturas graves.</span>
+            <span class="lang-qu">Sichus k'irimuy kanqa, t'aqasqa kasqanmanta sunya. Hatun t'aqasqakunaman 911ta waqyay.</span>
+            <span class="lang-ay">Usuntañ utjchi ukhaxa p'akit utjaskaspawa amtañamawa. Jach'a p'akitanakatakix 911 jawsañamawa.</span>
+          </div>
+
+          <h3 class="subsection-heading">
+            <span class="lang-es">Signos de fractura:</span>
+            <span class="lang-qu">T'aqasqapa rikch'ayninkkuna:</span>
+            <span class="lang-ay">P'akit uñanchanakapa:</span>
+          </h3>
+          <ul class="list-disc list-inside space-y-2 mb-6">
+            <li>
+              <span class="lang-es">Dolor intenso</span>
+              <span class="lang-qu">Sinchi nanay</span>
+              <span class="lang-ay">Wali usuntañ</span>
+            </li>
+            <li>
+              <span class="lang-es">Hinchazón y moretones</span>
+              <span class="lang-qu">Punsiy, yana punkariy</span>
+              <span class="lang-ay">Punsiyañ, ch'iyar punkarañ</span>
+            </li>
+            <li>
+              <span class="lang-es">Deformidad visible</span>
+              <span class="lang-qu">Mana allin rikuriq</span>
+              <span class="lang-ay">Mä allin uñakipan</span>
+            </li>
+            <li>
+              <span class="lang-es">Incapacidad para mover o usar el área</span>
+              <span class="lang-qu">Chay cheqasmanqa kuyurichiy utaq servichiy mana atiy</span>
+              <span class="lang-ay">Ukjawa kuyuyañ jan ukax apnaqañ mä yatiña</span>
+            </li>
+          </ul>
+
+          <h3 class="subsection-heading">
+            <span class="lang-es">Primeros auxilios para fracturas:</span>
+            <span class="lang-qu">T'aqasqakunaman ñawpaq yanapakuna:</span>
+            <span class="lang-ay">P'akitanakataki nayriri yanapañanaka:</span>
+          </h3>
+
+          <div class="space-y-4">
+            <div class="flex items-start">
+              <span class="step-number">1</span>
+              <div>
+                <p class="font-semibold">
+                  <span class="lang-es">No muevas a la persona</span>
+                  <span class="lang-qu">Runata ama kuyuchiychu</span>
+                  <span class="lang-ay">Jaqi janiw kuyuyañäkiti</span>
+                </p>
+                <p class="lang-es">A menos que esté en peligro inmediato</p>
+                <p class="lang-qu">Manachus utqaylla peligropi kanqa chayqa</p>
+                <p class="lang-ay">Anxat jan peligron uñtatkchi ukhaxa</p>
+                <img src="Fracturanomover.png" style="width:100%;" alt="No mover la fractura">
+
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span class="step-number">2</span>
+              <div>
+                <p class="font-semibold">
+                  <span class="lang-es">Inmoviliza la fractura</span>
+                  <span class="lang-qu">T'aqasqata mana kuyurichiy</span>
+                  <span class="lang-ay">P'akit jan kuyuchiñäkiti</span>
+                </p>
+                <p class="lang-es">Usa tablillas para mantener el hueso en posición</p>
+                <p class="lang-qu">Taqlla imatapas apnaqispa tulluta allinta churay</p>
+                <p class="lang-ay">Tabla ukanak apasiñasa ch'akar sum uñtayañataki</p>
+                <img src="inmobilizarfractura.png" style="width:100%;" alt="Inmovilizar una fractura con tablillas o vendajes">
+
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span class="step-number">3</span>
+              <div>
+                <p class="font-semibold">
+                  <span class="lang-es">Aplica hielo</span>
+                  <span class="lang-qu">Chhullita churay</span>
+                  <span class="lang-ay">Chhullisa churañamawa</span>
+                </p>
+                <p class="lang-es">Envuelto en un paño, durante 15-20 minutos</p>
+                <p class="lang-qu">Phuchkawan p'ampasqa, 15-20 minutukunapis</p>
+                <p class="lang-ay">Ch'uñump p'ampasiña, 15-20 minutunakama</p>
+                <img src="aplicarhielo.png" style="width:100%;" alt="Aplicar hielo sobre la zona">
+
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span class="step-number">4</span>
+              <div>
+                <p class="font-semibold">
+                  <span class="lang-es">Controla el sangrado</span>
+                  <span class="lang-qu">Yawar lluqsiyninata kamachiy</span>
+                  <span class="lang-ay">Wila mistuyiri kamachaña</span>
+                </p>
+                <p class="lang-es">Si hay herida abierta, presiona suavemente alrededor</p>
+                <p class="lang-qu">Sichus kichasqa k'irisqa kanqa, muyunpaq sumakta ñit'iy</p>
+                <p class="lang-ay">Jist'arat ch'axw utjchi ukhaxa muyuntat llamp'uki ñit'iñamawa</p>
+                <img src="ppresionarherida.png" style="width:100%;" alt="Presionar la herida para detener el sangrado">
+
+              </div>
+            </div>
+
+            <div class="flex items-start">
+              <span class="step-number">5</span>
+              <div>
+                <p class="font-semibold">
+                  <span class="lang-es">Trata el shock</span>
+                  <span class="lang-qu">Mancharikuyninata hampiy</span>
+                  <span class="lang-ay">Manchañar qollaña</span>
+                </p>
+                <p class="lang-es">Mantén abrigado y eleva las piernas si es posible</p>
+                <p class="lang-qu">Q'uñi kachiy, sichus atiykuwanqa chakikunata huqariy</p>
+                <p class="lang-ay">Junt'ur uñtayaña, yatiski ukhaxa kayunaka jithsuyañamawa</p>
+                <img src="tratarshokmanta.png" style="width:100%;" alt="Tratar el shock, cubrir con manta">
+
+              </div>
+            </div>
+          </div>
+
+          <div class="info-box mt-6">
+            <span class="emoji-icon mr-2">🦴</span>
+            <strong>
+              <span class="lang-es">Tipos de fracturas:</span>
+              <span class="lang-qu">T'aqasqakuna layaykuna:</span>
+              <span class="lang-ay">P'akit chhiqhanakapa:</span>
+            </strong>
+            <ul class="list-disc list-inside mt-2 space-y-1">
+              <li>
+                <span class="lang-es"><strong>Cerrada:</strong> El hueso está roto pero la piel intacta</span>
+                <span class="lang-qu"><strong>Wisq'asqa:</strong> Tullu t'aqasqa ichaqa qara mana k'irisqachu</span>
+                <span class="lang-ay"><strong>Ist'ata:</strong> Ch'aka p'akit ukampis janchiruxa jan ch'axwäkiti</span>
+              </li>
+              <li>
+                <span class="lang-es"><strong>Abierta:</strong> El hueso atraviesa la piel</span>
+                <span class="lang-qu"><strong>Kichasqa:</strong> Tullu qaramanta lluqsimun</span>
+                <span class="lang-ay"><strong>Jist'ata:</strong> Ch'akaxa janchirun jithsuya</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Emergencias Section -->
+        <div id="emergencias-content" class="section-card hidden">
+          <h2 class="section-heading">
+            <span class="lang-es">Situaciones de Emergencia</span>
+            <span class="lang-qu">Utqay Yanapana Ruwaykunan</span>
+            <span class="lang-ay">Anxata Yanapawi Lurawinaka</span>
+          </h2>
+
+          <div class="tab-container">
+            <div class="tab active" data-tab="infarto">
+              <span class="lang-es">Infarto</span>
+              <span class="lang-qu">Sunqu nanay</span>
+              <span class="lang-ay">Chuyma usuntañ</span>
+            </div>
+            <div class="tab" data-tab="asfixia">
+              <span class="lang-es">Asfixia</span>
+              <span class="lang-qu">Samay hark'ay</span>
+              <span class="lang-ay">Samaña jan'ichi</span>
+            </div>
+            <div class="tab" data-tab="desmayo">
+              <span class="lang-es">Desmayo</span>
+              <span class="lang-qu">Ch'usaqyay</span>
+              <span class="lang-ay">Ch'usaqyañ</span>
+            </div>
+            <div class="tab" data-tab="convulsiones">
+              <span class="lang-es">Convulsiones</span>
+              <span class="lang-qu">Khuya khuya</span>
+              <span class="lang-ay">Khuya khuya</span>
+            </div>
+          </div>
+
+          <div id="infarto" class="tab-content">
+            <h3 class="subsection-heading">
+              <span class="lang-es">Signos de infarto:</span>
+              <span class="lang-qu">Sunqu nanaypa rikch'ayninkkuna:</span>
+              <span class="lang-ay">Chuyma usuntañ uñanchanakapa:</span>
+            </h3>
+            <ul class="list-disc list-inside space-y-2 mb-4">
+              <li>
+                <span class="lang-es">Dolor intenso en el pecho</span>
+                <span class="lang-qu">Kasqapi sinchi nanay</span>
+                <span class="lang-ay">Jirjana sinchi usuntañ</span>
+              </li>
+              <li>
+                <span class="lang-es">Dolor que se extiende a brazos, cuello, mandíbula</span>
+                <span class="lang-qu">Nanay makikuna, kunka, k'akhuanman ripukuq</span>
+                <span class="lang-ay">Usuntañ ampara, ajanu, laka tuqiruwa puriya</span>
+              </li>
+              <li>
+                <span class="lang-es">Dificultad para respirar</span>
+                <span class="lang-qu">Samay sasachakuy</span>
+                <span class="lang-ay">Samaña ch'amäñ</span>
+              </li>
+              <li>
+                <span class="lang-es">Sudoración fría</span>
+                <span class="lang-qu">Chiri jaqhiyay</span>
+                <span class="lang-ay">Thaya junt'uyañ</span>
+              </li>
+              <li>
+                <span class="lang-es">Náuseas y vómitos</span>
+                <span class="lang-qu">Khuyuy, waqwiy</span>
+                <span class="lang-ay">Urt'asu, laq'ayañ</span>
+              </li>
+            </ul>
+
+            <div class="warning-box">
+              <span class="emoji-icon mr-2">⚠️</span>
+              <strong>
+                <span class="lang-es">¡Llama al 911 inmediatamente!</span>
+                <span class="lang-qu">¡911man utqayllata waqyay!</span>
+                <span class="lang-ay">¡911 anxat jawsaña!</span>
+              </strong>
+            </div>
+
+            <h4 class="font-semibold mt-4 mb-2">
+              <span class="lang-es">Mientras esperas ayuda:</span>
+              <span class="lang-qu">Yanapaq suyaspa:</span>
+              <span class="lang-ay">Yanapiri suyasaxa:</span>
+            </h4>
+            <ol class="list-decimal list-inside space-y-2">
+              <li>
+                <span class="lang-es">Haz que la persona se siente o recueste cómodamente</span>
+                <span class="lang-qu">Runata sumakta tiyachiy utaq siriy</span>
+                <span class="lang-ay">Jaqi suma tiyuchiña jan ukax ikiñuchiñamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Afloja la ropa apretada</span>
+                <span class="lang-qu">Jatun watasqa p'achata kichapayay</span>
+                <span class="lang-ay">Jatun watasir p'acha kichantañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Dale aspirina si no es alérgico</span>
+                <span class="lang-qu">Manachus allergiayuq kanqa chayqa aspirinata quy</span>
+                <span class="lang-ay">Jan alergianiw utjchi ukhaxa aspirina churañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Mantén a la persona tranquila y despierta</span>
+                <span class="lang-qu">Runata thak thakllarichiy hinaspa rikch'aqllarichiy</span>
+                <span class="lang-ay">Jaqi thiya thiyar ikiñar uñjayañar uñtayaña</span>
+              </li>
+            </ol>
+          </div>
+
+          <div id="asfixia" class="tab-content hidden">
+            <h3 class="subsection-heading">
+              <span class="lang-es">Maniobra de Heimlich:</span>
+              <span class="lang-qu">Heimlich ruray:</span>
+              <span class="lang-ay">Heimlich luraña:</span>
+            </h3>
+
+            <div class="warning-box">
+              <span class="emoji-icon mr-2">⚠️</span>
+              <strong>
+                <span class="lang-es">Solo si la persona NO puede hablar, toser o respirar</span>
+                <span class="lang-qu">Sichus runaqa manam rimaychu, ukhuycha, samaytachu atin</span>
+                <span class="lang-ay">Jaqix jan arsuñ, juchhuñ, samayañ yatix ukhakaraki</span>
+              </strong>
+            </div>
+
+            <h4 class="font-semibold mt-4 mb-2">
+              <span class="lang-es">Para adultos y niños mayores de 1 año:</span>
+              <span class="lang-qu">Hatun runakunapaq, 1 watayuq wawapaqpash:</span>
+              <span class="lang-ay">Jilir jaqinakataki, 1 mara wawa jilanakatakiw:</span>
+            </h4>
+            <ol class="list-decimal list-inside space-y-2">
+              <li>
+                <span class="lang-es">Párate detrás de la persona</span>
+                <span class="lang-qu">Runapa qhepanpi sayariy</span>
+                <span class="lang-ay">Jaqin qhipanxa sayt'añamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Rodea su cintura con tus brazos</span>
+                <span class="lang-qu">Chuyanninpata makinaykiwan muyu</span>
+                <span class="lang-ay">Chuyanparu amparanakampiw muyuntañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Haz un puño con una mano</span>
+                <span class="lang-qu">Huk makiykiwanqa puñute ruray</span>
+                <span class="lang-ay">Maya amparampiw puñu lurañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Coloca el puño encima del ombligo</span>
+                <span class="lang-qu">Puñuykita puspu patanpi churay</span>
+                <span class="lang-ay">Puñu puspu patat uñtayañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Presiona rápido y fuerte hacia arriba</span>
+                <span class="lang-qu">Utqay sichilla hananman ñit'iy</span>
+                <span class="lang-ay">Jank'aki sinchit alaxa ñit'iñamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Repite hasta que el objeto salga</span>
+                <span class="lang-qu">Imapash lluqsimunanpaq kutiriy</span>
+                <span class="lang-ay">Kuna mistunkama kutiyañamawa</span>
+              </li>
+            </ol>
+          </div>
+
+          <div id="desmayo" class="tab-content hidden">
+            <h3 class="subsection-heading">
+              <span class="lang-es">Manejo de desmayos:</span>
+              <span class="lang-qu">Ch'usaqyaypa kamachiyninkkuna:</span>
+              <span class="lang-ay">Ch'usaqyañ kamachaña:</span>
+            </h3>
+
+            <ol class="list-decimal list-inside space-y-2">
+              <li>
+                <span class="lang-es">Coloca a la persona acostada boca arriba</span>
+                <span class="lang-qu">Runata umanwan pampaman siriy</span>
+                <span class="lang-ay">Jaqi uma jaqukamaru ikintañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Eleva las piernas 12 pulgadas</span>
+                <span class="lang-qu">Chakikunata 12 pulgadas huqariy</span>
+                <span class="lang-ay">Kayunaka 12 pulgadas jithsuyañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Afloja ropa apretada</span>
+                <span class="lang-qu">Jatun watasqa p'achata kichapayay</span>
+                <span class="lang-ay">Jatun watasir p'acha kichantañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Verifica respiración y pulso</span>
+                <span class="lang-qu">Samayninman, yawarnin puririyninmantapash qhawariy</span>
+                <span class="lang-ay">Samayañapa, wilañ phuriripan uñjañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Si no responde en 1 minuto, llama al 911</span>
+                <span class="lang-qu">Sichus 1 minutopi manam kutichinkuchu chayqa 911ta waqyay</span>
+                <span class="lang-ay">1 minutun jan kutichirkchi ukhaxa 911 jawsañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Cuando despierte, ayúdala a sentarse lentamente</span>
+                <span class="lang-qu">Rikch'arimuptinqa pisiyallalla tiyananpaq yanapay</span>
+                <span class="lang-ay">Ikiript'atapaxa pisi pisit tiyuñapataki yanapañamawa</span>
+              </li>
+            </ol>
+
+            <div class="info-box mt-4">
+              <span class="emoji-icon mr-2">📌</span>
+              <strong>
+                <span class="lang-es">Causas comunes:</span>
+                <span class="lang-qu">Sapa kaq ruwayukkkuna:</span>
+                <span class="lang-ay">Sapa kuti ruwañanaka:</span>
+              </strong>
+              <span class="lang-es">Calor, deshidratación, estar de pie mucho tiempo, ver sangre</span>
+              <span class="lang-qu">K'ajllay, yaku pisiyay, unayta sayay, yawarta rikuy</span>
+              <span class="lang-ay">Junt'u, uma pisiyañ, jaya sayt'añ, wila uñjaña</span>
+            </div>
+          </div>
+
+          <div id="convulsiones" class="tab-content hidden">
+            <h3 class="subsection-heading">
+              <span class="lang-es">Durante una convulsión:</span>
+              <span class="lang-qu">Khuya khuya kasqanpi:</span>
+              <span class="lang-ay">Khuya khuya utjaskitapaxa:</span>
+            </h3>
+
+            <div class="warning-box">
+              <span class="emoji-icon mr-2">⚠️</span>
+              <strong>
+                <span class="lang-es">NO pongas nada en la boca de la persona</span>
+                <span class="lang-qu">Runapa siminman imatapash AMA churaycchu</span>
+                <span class="lang-ay">Jaqin lakan JANIW kunar churañäkiti</span>
+              </strong>
+            </div>
+
+            <h4 class="font-semibold mt-4 mb-2">
+              <span class="lang-es">Qué hacer:</span>
+              <span class="lang-qu">Imataq ruwana:</span>
+              <span class="lang-ay">Kunatsa lurañamawa:</span>
+            </h4>
+            <ol class="list-decimal list-inside space-y-2">
+              <li>
+                <span class="lang-es">Mantén la calma y quédate con la persona</span>
+                <span class="lang-qu">Thak thak kay, runaykiwanrakipash kay</span>
+                <span class="lang-ay">Thiya thiya uñtasisa jaqimpiw qhipantañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Anota la hora de inicio</span>
+                <span class="lang-qu">Iman horamantataq qallarirqan qillqay</span>
+                <span class="lang-ay">Kuna horantat qalltir uk qillqantañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Aleja objetos peligrosos</span>
+                <span class="lang-qu">Peligroyuq imakunata karu apay</span>
+                <span class="lang-ay">Peligruni yukanaka jaqhantañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Coloca algo suave bajo la cabeza</span>
+                <span class="lang-qu">Umapa uranmanqa llamp'u imatapash churay</span>
+                <span class="lang-ay">Umañ aynacha llamp'u kuna churañamawa</span>
+              </li>
+              <li>
+                <span class="lang-es">Voltea a la persona de lado después de la convulsión</span>
+                <span class="lang-qu">Khuya khuya tukuchkasqanmanta laduman kutiy</span>
+                <span class="lang-ay">Khuya khuya tukuyatapaxa chimpu tuqiru jaqukañamawa</span>
+              </li>
+            </ol>
+
+            <h4 class="font-semibold mt-4 mb-2">
+              <span class="lang-es">Llama al 911 si:</span>
+              <span class="lang-qu">911ta waqyay sichus:</span>
+              <span class="lang-ay">911 jawsaña sichus:</span>
+            </h4>
+            <ul class="list-disc list-inside space-y-1">
+              <li>
+                <span class="lang-es">Dura más de 5 minutos</span>
+                <span class="lang-qu">5 minutumanta aswan kay</span>
+                <span class="lang-ay">5 minutut sipansa sarayaski</span>
+              </li>
+              <li>
+                <span class="lang-es">Es la primera convulsión</span>
+                <span class="lang-qu">Ñawpaq kaq khuya khuya</span>
+                <span class="lang-ay">Nayriri khuya khuya</span>
+              </li>
+              <li>
+                <span class="lang-es">Se lesiona durante la convulsión</span>
+                <span class="lang-qu">Khuya khuya kasqanpi k'irimpun</span>
+                <span class="lang-ay">Khuya khuya utjaskitapaxa ch'axwaski</span>
+              </li>
+              <li>
+                <span class="lang-es">No recupera la consciencia</span>
+                <span class="lang-qu">Manam yuyayninman kutimunchu</span>
+                <span class="lang-ay">Janiw yuyayapar kutinïkiti</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Glosario Section -->
+        <div id="glosario-content" class="section-card hidden">
+          <h2 class="section-heading">
+            <span class="lang-es">Glosario de Términos Médicos</span>
+            <span class="lang-qu">Hampiq Simikunapaq Qillqa</span>
+            <span class="lang-ay">Qolla Arunakana Qillqawi</span>
+          </h2>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="space-y-4">
+              <div class="border-l-4 border-blue-500 pl-4">
+                <h4 class="font-semibold text-blue-700">
+                  <span class="lang-es">Asfixia</span>
+                  <span class="lang-qu">Samay hark'ay</span>
+                  <span class="lang-ay">Samaña jan'ichi</span>
+                </h4>
+                <p class="text-sm text-gray-600">
+                  <span class="lang-es">Obstrucción de las vías respiratorias que impide la respiración</span>
+                  <span class="lang-qu">Samaypa ñanninku hark'asqa, samaypia manam atinchu</span>
+                  <span class="lang-ay">Samaña thaninaka jan'it samaña janiw yatiñäkiti</span>
+                </p>
+              </div>
+
+              <div class="border-l-4 border-blue-500 pl-4">
+                <h4 class="font-semibold text-blue-700">
+                  <span class="lang-es">Desfibrilador</span>
+                  <span class="lang-qu">Sunqu chinkachiq</span>
+                  <span class="lang-ay">Chuyma jan'ichiri</span>
+                </h4>
+                <p class="text-sm text-gray-600">
+                  <span class="lang-es">Dispositivo que envía descargas eléctricas al corazón</span>
+                  <span class="lang-qu">Sunquman electricidad kachamuq aparato</span>
+                  <span class="lang-ay">Chuymar illapa kachasiña aparatu</span>
+                </p>
+              </div>
+
+              <div class="border-l-4 border-blue-500 pl-4">
+                <h4 class="font-semibold text-blue-700">
+                  <span class="lang-es">Hemorragia</span>
+                  <span class="lang-qu">Yawar lluqsiy</span>
+                  <span class="lang-ay">Wila mistuyañ</span>
+                </h4>
+                <p class="text-sm text-gray-600">
+                  <span class="lang-es">Pérdida abundante de sangre</span>
+                  <span class="lang-qu">Achka yawar chinkay</span>
+                  <span class="lang-ay">Walja wila chhaqhayañ</span>
+                </p>
+              </div>
+
+              <div class="border-l-4 border-blue-500 pl-4">
+                <h4 class="font-semibold text-blue-700">
+                  <span class="lang-es">Hipotermia</span>
+                  <span class="lang-qu">Sinchi chiriyay</span>
+                  <span class="lang-ay">Wali thayañ</span>
+                </h4>
+                <p class="text-sm text-gray-600">
+                  <span class="lang-es">Temperatura corporal peligrosamente baja</span>
+                  <span class="lang-qu">Kuerpu k'irilla peligroyuq</span>
+                  <span class="lang-ay">Kurpu wali thaya peligroniwa</span>
+                </p>
+              </div>
+
+              <div class="border-l-4 border-blue-500 pl-4">
+                <h4 class="font-semibold text-blue-700">
+                  <span class="lang-es">Paro cardíaco</span>
+                  <span class="lang-qu">Sunqu sayay</span>
+                  <span class="lang-ay">Chuyma sayt'añ</span>
+                </h4>
+                <p class="text-sm text-gray-600">
+                  <span class="lang-es">El corazón deja de latir efectivamente</span>
+                  <span class="lang-qu">Sunquqa manam allinta llank'anchu</span>
+                  <span class="lang-ay">Chuymaxa janiw allin llank'añäkiti</span>
+                </p>
+              </div>
+
+              <div class="border-l-4 border-blue-500 pl-4">
+                <h4 class="font-semibold text-blue-700">
+                  <span class="lang-es">Pulso</span>
+                  <span class="lang-qu">Yawar puririy</span>
+                  <span class="lang-ay">Wila phuriri</span>
+                </h4>
+                <p class="text-sm text-gray-600">
+                  <span class="lang-es">Latido del corazón que se siente en las arterias</span>
+                  <span class="lang-qu">Sunqu takiyninku arteriakunapi uyariq</span>
+                  <span class="lang-ay">Chuyma takiñapa arterianakanxa ist'asiñäni</span>
+                </p>
+              </div>
+            </div>
+
+            <div class="space-y-4">
+              <div class="border-l-4 border-green-500 pl-4">
+                <h4 class="font-semibold text-green-700">
+                  <span class="lang-es">Reanimación</span>
+                  <span class="lang-qu">Kutichiy</span>
+                  <span class="lang-ay">Kutsuñ</span>
+                </h4>
+                <p class="text-sm text-gray-600">
+                  <span class="lang-es">Restaurar las funciones vitales del cuerpo</span>
+                  <span class="lang-qu">Kuerpu kawsayninkunata kutichiy</span>
+                  <span class="lang-ay">Kurpu jakañanaka kutsuñamawa</span>
+                </p>
+              </div>
+
+              <div class="border-l-4 border-green-500 pl-4">
+                <h4 class="font-semibold text-green-700">
+                  <span class="lang-es">Shock</span>
+                  <span class="lang-qu">Mancharikuy</span>
+                  <span class="lang-ay">Manchañ</span>
+                </h4>
+                <p class="text-sm text-gray-600">
+                  <span class="lang-es">Condición grave donde el cuerpo no recibe suficiente sangre</span>
+                  <span class="lang-qu">Kuerpu mana aysa yawarta chaskikuq unquy</span>
+                  <span class="lang-ay">Kurpu jan aysa wila katuqañ usuntañawa</span>
+                </p>
+              </div>
+
+              <div class="border-l-4 border-green-500 pl-4">
+                <h4 class="font-semibold text-green-700">
+                  <span class="lang-es">Síncope</span>
+                  <span class="lang-qu">Ch'usaqyay</span>
+                  <span class="lang-ay">Ch'usaqyañ</span>
+                </h4>
+                <p class="text-sm text-gray-600">
+                  <span class="lang-es">Pérdida temporal de la consciencia (desmayo)</span>
+                  <span class="lang-qu">Pisillapi yuyayninmanta chinkapuy</span>
+                  <span class="lang-ay">Juk'akiw yuyayaña chhaqtayañawa</span>
+                </p>
+              </div>
+
+              <div class="border-l-4 border-green-500 pl-4">
+                <h4 class="font-semibold text-green-700">
+                  <span class="lang-es">Taquicardia</span>
+                  <span class="lang-qu">Utqay sunqu takiy</span>
+                  <span class="lang-ay">Jank'ak chuyma takiñ</span>
+                </h4>
+                <p class="text-sm text-gray-600">
+                  <span class="lang-es">Ritmo cardíaco anormalmente rápido</span>
+                  <span class="lang-qu">Sunqu mana allin utqay takiynin</span>
+                  <span class="lang-ay">Chuyma jan allin jank'ak takiñapa</span>
+                </p>
+              </div>
+
+              <div class="border-l-4 border-green-500 pl-4">
+                <h4 class="font-semibold text-green-700">
+                  <span class="lang-es">Trauma</span>
+                  <span class="lang-qu">K'irimuy</span>
+                  <span class="lang-ay">Ch'axwañ</span>
+                </h4>
+                <p class="text-sm text-gray-600">
+                  <span class="lang-es">Lesión física grave causada por fuerza externa</span>
+                  <span class="lang-qu">Hawamanta sinchi k'irimuy</span>
+                  <span class="lang-ay">Anqäat sinchi ch'axwaña</span>
+                </p>
+              </div>
+
+              <div class="border-l-4 border-green-500 pl-4">
+                <h4 class="font-semibold text-green-700">
+                  <span class="lang-es">Vías aéreas</span>
+                  <span class="lang-qu">Samay ñankuna</span>
+                  <span class="lang-ay">Samaña thaninaka</span>
+                </h4>
+                <p class="text-sm text-gray-600">
+                  <span class="lang-es">Conductos por donde pasa el aire para respirar</span>
+                  <span class="lang-qu">Samaypa wayra purimunan ñankuna</span>
+                  <span class="lang-ay">Samaña wayra sarnaqañataki thaninaka</span>
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 p-4 bg-blue-50 dark:bg-blue-900 rounded-lg">
+            <h3 class="font-semibold text-blue-800 dark:text-blue-200 mb-2">
+              <span class="lang-es">Números de emergencia importantes:</span>
+              <span class="lang-qu">Utqay yanapaypa chaniyuq yupaykuna:</span>
+              <span class="lang-ay">Anxata yanapawi wali askir uñanaka:</span>
+            </h3>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-2 text-sm">
+              <div>
+                <strong>911</strong> - <span class="lang-es">Emergencias</span><span class="lang-qu">Utqay yanapay</span><span class="lang-ay">Anxata yanapawi</span>
+              </div>
+              <div>
+                <strong>105</strong> - <span class="lang-es">Policía</span><span class="lang-qu">Pusikuna</span><span class="lang-ay">Pusiri</span>
+              </div>
+              <div>
+                <strong>116</strong> - <span class="lang-es">Bomberos</span><span class="lang-qu">Nina chinkachik</span><span class="lang-ay">Nina jiwayiri</span>
+              </div>
+              <div>
+                <strong>115</strong> - <span class="lang-es">Defensa Civil</span><span class="lang-qu">Llaqta amachay</span><span class="lang-ay">Marka arktawi</span>
+              </div>
+              <div>
+                <strong>110</strong> - <span class="lang-es">Policía de carreteras</span><span class="lang-qu">Ñan pusikuna</span><span class="lang-ay">Thaki pusiri</span>
+              </div>
+              <div>
+                <strong>(01) 266 0481</strong> - <span class="lang-es">Cruz Roja</span><span class="lang-qu">Puka Chakana</span><span class="lang-ay">Wila Chakana</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    // Initialize app state
+    let currentSection = null;
+    let currentLang = 'es';
+    let darkMode = false;
+
+    // DOM elements
+    let homeScreen, mainScreen, sectionsListDiv, sectionContentDiv, backBtn, startBtn;
+    let emergencyDropdownBtn, emergencyDropdown, darkModeToggle;
+
+    // Language selectors
+    let languageSelectors;
+
+    // Card buttons
+    let cardButtons;
+
+    // Section contents
+    let sectionContents = {};
+
+    // Toggle emergency dropdown
+    function toggleEmergencyDropdown() {
+      if (emergencyDropdown) {
+        emergencyDropdown.classList.toggle('hidden');
+      }
+    }
+
+    // Call emergency function for MIT App Inventor
+    function callEmergency(number) {
+      try {
+        // Close dropdown
+        if (emergencyDropdown) {
+          emergencyDropdown.classList.add('hidden');
+        }
+
+        // Send call command to MIT App Inventor
+        if (window.AppInventor && window.AppInventor.setWebViewString) {
+          window.AppInventor.setWebViewString(number);
+        } else {
+          // Fallback for testing in browser
+          console.log('Llamando a:', number);
+          alert('Llamando al número: ' + number);
+        }
+      } catch (error) {
+        console.error('Error al intentar llamar:', error);
+        // Fallback - try direct call
+        window.location.href = 'tel:' + number;
+      }
+    }
+
+    // Initialize language
+    function setLanguage(lang) {
+      currentLang = lang;
+      document.body.setAttribute('data-lang', lang);
+
+      // Update active language selector for both home and header
+      document.querySelectorAll('.language-selector, .language-selector-home').forEach(selector => {
+        selector.classList.remove('active');
+        if (selector.getAttribute('data-lang') === lang) {
+          selector.classList.add('active');
+        }
+      });
+
+      // Save to localStorage
+      try {
+        localStorage.setItem('ampara-lang', lang);
+      } catch (e) {
+        console.log('LocalStorage not available');
+      }
+    }
+
+    // Initialize dark mode
+    function setDarkMode(enabled) {
+      darkMode = enabled;
+      if (enabled) {
+        document.body.classList.add('dark-mode');
+        if (darkModeToggle) {
+          darkModeToggle.innerHTML = '<span class="emoji-icon">☀️</span>';
+        }
+      } else {
+        document.body.classList.remove('dark-mode');
+        if (darkModeToggle) {
+          darkModeToggle.innerHTML = '<span class="emoji-icon">🌙</span>';
+        }
+      }
+      try {
+        localStorage.setItem('ampara-dark-mode', enabled);
+      } catch (e) {
+        console.log('LocalStorage not available');
+      }
+    }
+
+    // Show main screen
+    function showMainScreen() {
+      if (homeScreen) homeScreen.classList.add('hidden');
+      if (mainScreen) mainScreen.classList.remove('hidden');
+      // Show back button in main screen
+      if (backBtn) backBtn.classList.remove('hidden');
+    }
+
+    // Show home screen
+    function showHomeScreen() {
+      if (homeScreen) homeScreen.classList.remove('hidden');
+      if (mainScreen) mainScreen.classList.add('hidden');
+      currentSection = null;
+      hideSection();
+    }
+
+    // Show section
+    function showSection(sectionId) {
+      currentSection = sectionId;
+
+      // Hide sections list
+      if (sectionsListDiv) sectionsListDiv.classList.add('hidden');
+
+      // Show section content container
+      if (sectionContentDiv) sectionContentDiv.classList.remove('hidden');
+
+      // Hide all section contents
+      Object.values(sectionContents).forEach(section => {
+        if (section) section.classList.add('hidden');
+      });
+
+      // Show specific section
+      if (sectionContents[sectionId]) {
+        sectionContents[sectionId].classList.remove('hidden');
+      }
+
+      // Show back button
+      if (backBtn) backBtn.classList.remove('hidden');
+    }
+
+    // Hide section
+    function hideSection() {
+      if (currentSection) {
+        // We're in a section, go back to sections list
+        currentSection = null;
+        if (sectionsListDiv) sectionsListDiv.classList.remove('hidden');
+        if (sectionContentDiv) sectionContentDiv.classList.add('hidden');
+        Object.values(sectionContents).forEach(section => {
+          if (section) section.classList.add('hidden');
+        });
+        if (backBtn) backBtn.classList.add('hidden');
+      } else {
+        // We're in main screen, go back to home
+        showHomeScreen();
+      }
+    }
+
+    // Tab functionality
+    function initializeTabs() {
+      const tabs = document.querySelectorAll('.tab');
+
+      tabs.forEach(tab => {
+        tab.addEventListener('click', function() {
+          const tabId = tab.getAttribute('data-tab');
+          const parentSection = tab.closest('.section-card');
+
+          if (!parentSection) return;
+
+          // Remove active class from all tabs in this section
+          parentSection.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+
+          // Add active class to clicked tab
+          tab.classList.add('active');
+
+          // Hide all tab contents in this section
+          parentSection.querySelectorAll('.tab-content').forEach(content => {
+            content.classList.add('hidden');
+          });
+
+          // Show selected tab content
+          const targetContent = document.getElementById(tabId);
+          if (targetContent) {
+            targetContent.classList.remove('hidden');
+          }
+        });
+      });
+    }
+
+    // Setup event listeners
+    function setupEventListeners() {
+      // Start button
+      if (startBtn) {
+        startBtn.addEventListener('click', showMainScreen);
+      }
+
+      // Back button
+      if (backBtn) {
+        backBtn.addEventListener('click', hideSection);
+      }
+
+      // Language selector event listeners (both home and header)
+      document.querySelectorAll('.language-selector, .language-selector-home').forEach(selector => {
+        selector.addEventListener('click', function() {
+          const lang = selector.getAttribute('data-lang');
+          setLanguage(lang);
+        });
+      });
+
+      // Card button event listeners
+      if (cardButtons) {
+        cardButtons.forEach(card => {
+          card.addEventListener('click', function() {
+            const section = card.getAttribute('data-section');
+            showSection(section);
+          });
+        });
+      }
+
+      // Dark mode toggle
+      if (darkModeToggle) {
+        darkModeToggle.addEventListener('click', function() {
+          setDarkMode(!darkMode);
+        });
+      }
+
+      // Close emergency dropdown when clicking outside
+      document.addEventListener('click', function(e) {
+        if (emergencyDropdown && !emergencyDropdown.classList.contains('hidden')) {
+          const emergencyBtn = document.getElementById('emergency-dropdown-btn');
+          if (emergencyBtn && !emergencyBtn.contains(e.target)) {
+            emergencyDropdown.classList.add('hidden');
+          }
+        }
+      });
+    }
+
+    // Initialize DOM elements
+    function initializeDOMElements() {
+      // Main DOM elements
+      homeScreen = document.getElementById('home-screen');
+      mainScreen = document.getElementById('main-screen');
+      sectionsListDiv = document.getElementById('sections-list');
+      sectionContentDiv = document.getElementById('section-content');
+      backBtn = document.getElementById('back-btn');
+      startBtn = document.getElementById('start-btn');
+      emergencyDropdownBtn = document.getElementById('emergency-dropdown-btn');
+      emergencyDropdown = document.getElementById('emergency-dropdown');
+      darkModeToggle = document.getElementById('dark-mode-toggle');
+
+      // Language selectors
+      languageSelectors = document.querySelectorAll('.language-selector');
+
+      // Card buttons
+      cardButtons = document.querySelectorAll('.card-button');
+
+      // Section contents
+      sectionContents = {
+        'rcp': document.getElementById('rcp-content'),
+        'heridas': document.getElementById('heridas-content'),
+        'quemaduras': document.getElementById('quemaduras-content'),
+        'fracturas': document.getElementById('fracturas-content'),
+        'emergencias': document.getElementById('emergencias-content'),
+        'glosario': document.getElementById('glosario-content')
+      };
+    }
+
+    // Initialize app
+    function initializeApp() {
+      console.log('Initializing Ampara app...');
+
+      // Initialize DOM elements first
+      initializeDOMElements();
+
+      // Load saved language
+      let savedLang = 'es';
+      try {
+        savedLang = localStorage.getItem('ampara-lang') || 'es';
+      } catch (e) {
+        console.log('LocalStorage not available, using default language');
+      }
+      setLanguage(savedLang);
+
+      // Load saved dark mode preference
+      let savedDarkMode = false;
+      try {
+        savedDarkMode = localStorage.getItem('ampara-dark-mode') === 'true';
+      } catch (e) {
+        console.log('LocalStorage not available, using default dark mode');
+      }
+      setDarkMode(savedDarkMode);
+
+      // Setup event listeners
+      setupEventListeners();
+
+      // Initialize tabs
+      initializeTabs();
+
+      console.log('Ampara app initialized successfully');
+    }
+
+    // Start the app when DOM is loaded
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initializeApp);
+    } else {
+      // DOM is already loaded
+      initializeApp();
+    }
+
+    // Fallback initialization after a short delay
+    setTimeout(function() {
+      if (!homeScreen) {
+        console.log('Fallback initialization...');
+        initializeApp();
+      }
+    }, 100);
+  </script>
+</body>
+</html>
